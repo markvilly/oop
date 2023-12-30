@@ -108,3 +108,88 @@ Person.prototype.calcAge = function () {
 
 jonas.calcAge();
 matilda.calcAge();
+
+// every object has a prototype called __proto__
+
+console.log(jonas.__proto__);
+console.log(jonas.__proto__ === Person.prototype);
+
+console.log(Person.prototype.isPrototypeOf(Person));
+
+Person.prototype.species = "homo sapiens";
+
+console.log(jonas.species);
+
+console.log(jonas.hasOwnProperty("firstName"));
+console.log(jonas.hasOwnProperty("species"));
+
+function makeCounter() {
+  let cnt = 0;
+  return () => cnt++;
+}
+
+const markCounter = makeCounter();
+const dickCounter = makeCounter();
+
+console.log(markCounter());
+console.log(dickCounter());
+console.log(markCounter());
+console.log(markCounter());
+
+//this on object.
+
+function Video(title) {
+  this.title = title;
+  console.log(this);
+}
+
+const nob = new Video("Suko");
+
+const video = {
+  title: "Banana",
+  tags: ["a", "b", "c", "d"],
+  play() {
+    console.log(`Playing ${this.title}`);
+  },
+  showTags() {
+    this.tags.forEach((tag) => {
+      console.log(this.title, tag);
+    });
+  },
+};
+
+video.showTags();
+
+const kissMe = () => {
+  console.log(this);
+};
+
+kissMe();
+
+function RegularFunction() {
+  this.value = 1;
+
+  setTimeout(function () {
+    // console.log(this);
+    this.value++;
+    console.log(`inside function the value of "this.value" ${this.value}`);
+  }, 1000);
+}
+
+const regularObj = new RegularFunction();
+
+function ArrowFunction() {
+  this.value = 2;
+
+  setTimeout(() => {
+    console.log(this);
+    this.value++;
+    console.log(`inside an arrow function "this.value is - ${this.value}`);
+  }),
+    1000;
+}
+
+const arrowObj = new ArrowFunction();
+const arrowObj2 = new ArrowFunction();
+const arrowObj3 = new ArrowFunction();
+const arrowObj4 = new ArrowFunction();
