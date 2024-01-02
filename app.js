@@ -185,8 +185,7 @@ kissMe();
 //     console.log(this);
 //     this.value++;
 //     console.log(`inside an arrow function "this.value is - ${this.value}`);
-//   }),
-//     1000;
+//   },1000);
 // }
 
 // const arrowObj = new ArrowFunction();
@@ -254,3 +253,86 @@ console.log(identify(you));
 
 speak(you);
 speak(me);
+
+// this does not let a function get a reference to itself.
+
+// function foo(num) {
+//   console.log("foo " + num);
+
+//   this.count++;
+// }
+
+//another takes involves creating another object to store the count property.
+
+// function foo(num) {
+//   console.log("foo: " + num);
+
+//   data.count++;
+// }
+
+// var data = {
+//   count: 0,
+// };
+
+// let i;
+
+// for (i = 0; i < 10; i++) {
+//   if (i > 5) {
+//     foo(i);
+//   }
+// }
+
+// console.log(data.count);
+
+//this work but you can also use foo identifier as a object reference in each place instead of *this*.
+
+// function foo(num) {
+//   console.log("foo is: " + num);
+
+//   foo.count++;
+// }
+
+// foo.count = 0;
+
+// let i;
+
+// for (let i = 0; i < 10; i++) {
+//   if (i > 5) {
+//     foo(i);
+//   }
+// }
+
+// console.log(foo.count);
+
+//application of the *this* keyword sasa.
+
+function foo(num) {
+  console.log("foo is: " + num);
+
+  this.count++;
+}
+
+foo.count = 0;
+
+var i;
+
+for (let i = 0; i < 10; i++) {
+  if (i > 5) {
+    foo.call(foo, i);
+  }
+}
+
+console.log(foo.count);
+
+const Person = function (name, bYear) {
+  this.name = name;
+  this.bYear = bYear;
+};
+
+Person.prototype.calcAge = function () {
+  return 2037 - this.bYear;
+};
+
+const jonas = new Person("Mark", 2010);
+console.log(Person.prototype.constructor);
+jonas.calcAge;
