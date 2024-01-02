@@ -57,84 +57,84 @@ const myFunc = function () {
 
 myFunc();
 
-const markobj = {
-  name: "mark",
-  job: "cowboy",
-};
+// const markobj = {
+//   name: "mark",
+//   job: "cowboy",
+// };
 
-//LET, VAR & CONST.
+// //LET, VAR & CONST.
 
-//let is block scoped. var is function scoped if not the it becomes globally scoped.
+// //let is block scoped. var is function scoped if not the it becomes globally scoped.
 
-if (true) {
-  var varVariable = "This is true";
-}
+// if (true) {
+//   var varVariable = "This is true";
+// }
 
-console.log(varVariable);
+// console.log(varVariable);
 
-if (true) {
-  let letVariable = "This is true";
-}
+// if (true) {
+//   let letVariable = "This is true";
+// }
 
-// console.log(letVariable);
+// // console.log(letVariable);
 
-//CONSTRUCTORS
+// //CONSTRUCTORS
 
-const Person = function (firstName, birthYear) {
-  // console.log(this);
-  this.firstName = firstName;
-  this.birthYear = birthYear;
-};
+// const Person = function (firstName, birthYear) {
+//   // console.log(this);
+//   this.firstName = firstName;
+//   this.birthYear = birthYear;
+// };
 
-part();
+// part();
 
-function part() {
-  console.log(this);
-}
+// function part() {
+//   console.log(this);
+// }
 
-const jonas = new Person("Jonas", 1991);
-const matilda = new Person("Matilda", 2014);
-const jack = new Person("Jack", 1997);
+// const jonas = new Person("Jonas", 1991);
+// const matilda = new Person("Matilda", 2014);
+// const jack = new Person("Jack", 1997);
 
-console.log(jonas);
+// console.log(jonas);
 
-//prototypal inheritence - delegation
+// //prototypal inheritence - delegation
 
-console.log(Person.prototype);
+// console.log(Person.prototype);
 
-Person.prototype.calcAge = function () {
-  console.log(2037 - this.birthYear);
-};
+// Person.prototype.calcAge = function () {
+//   console.log(2037 - this.birthYear);
+// };
 
-jonas.calcAge();
-matilda.calcAge();
+// jonas.calcAge();
+// matilda.calcAge();
 
-// every object has a prototype called __proto__
+// // every object has a prototype called __proto__
 
-console.log(jonas.__proto__);
-console.log(jonas.__proto__ === Person.prototype);
+// console.log(jonas.__proto__);
+// console.log(jonas.__proto__ === Person.prototype);
 
-console.log(Person.prototype.isPrototypeOf(Person));
+// console.log(Person.prototype.isPrototypeOf(Person));
 
-Person.prototype.species = "homo sapiens";
+// Person.prototype.species = "homo sapiens";
 
-console.log(jonas.species);
+// console.log(jonas.species);
 
-console.log(jonas.hasOwnProperty("firstName"));
-console.log(jonas.hasOwnProperty("species"));
+// console.log(jonas.hasOwnProperty("firstName"));
+// console.log(jonas.hasOwnProperty("species"));
 
-function makeCounter() {
-  let cnt = 0;
-  return () => cnt++;
-}
+// function makeCounter() {
+//   let cnt = 0;
+//   return () => cnt++;
+// }
 
-const markCounter = makeCounter();
-const dickCounter = makeCounter();
+// const markCounter = makeCounter();
+// const dickCounter = makeCounter();
 
-console.log(markCounter());
-console.log(dickCounter());
-console.log(markCounter());
-console.log(markCounter());
+// console.log(markCounter());
+// console.log(dickCounter());
+// console.log(markCounter());
+// console.log(markCounter());
 
 //this on object.
 
@@ -166,30 +166,91 @@ const kissMe = () => {
 
 kissMe();
 
-function RegularFunction() {
-  this.value = 1;
+// function RegularFunction() {
+//   this.value = 1;
 
-  setTimeout(function () {
-    // console.log(this);
-    this.value++;
-    console.log(`inside function the value of "this.value" ${this.value}`);
-  }, 1000);
+//   setTimeout(function () {
+//     // console.log(this);
+//     this.value++;
+//     console.log(`inside function the value of "this.value" ${this.value}`);
+//   }, 1000);
+// }
+
+// const regularObj = new RegularFunction();
+
+// function ArrowFunction() {
+//   this.value = 2;
+
+//   setTimeout(() => {
+//     console.log(this);
+//     this.value++;
+//     console.log(`inside an arrow function "this.value is - ${this.value}`);
+//   }),
+//     1000;
+// }
+
+// const arrowObj = new ArrowFunction();
+// const arrowObj2 = new ArrowFunction();
+// const arrowObj3 = new ArrowFunction();
+// const arrowObj4 = new ArrowFunction();
+
+//ASSIGNING this manually.
+
+const lufthansa = {
+  airline: "Lufthansa",
+  bookings: [],
+  iataCode: "LH",
+  book(flightNum, name) {
+    console.log(
+      `${name} has booked ${this.airline} flight ${this.iataCode} ${flightNum}`
+    );
+    this.bookings.push({ flight: `${this.iataCode}${flightNum}`, name });
+  },
+};
+
+lufthansa.book(239, "Mark Paul");
+lufthansa.book(196, "John Smith");
+
+console.log(lufthansa.bookings);
+
+const eauroWings = {
+  name: "Eurowings",
+  iataCode: "EW",
+  bookings: [],
+};
+
+console.log(lufthansa.bookings);
+
+console.log("WORKINGS OF THE this KEYWORD");
+
+// function identify() {
+//   return this.name.toUpperCase();
+// }
+
+// function speak() {
+//   var greeting = "Hello, I'm " + identify.call(this);
+//   console.log(greeting);
+// }
+
+function identify(context) {
+  return context.name.toUpperCase();
 }
 
-const regularObj = new RegularFunction();
-
-function ArrowFunction() {
-  this.value = 2;
-
-  setTimeout(() => {
-    console.log(this);
-    this.value++;
-    console.log(`inside an arrow function "this.value is - ${this.value}`);
-  }),
-    1000;
+function speak(context) {
+  var greeting = "Hello, I'm " + identify(context);
+  console.log(greeting);
 }
 
-const arrowObj = new ArrowFunction();
-const arrowObj2 = new ArrowFunction();
-const arrowObj3 = new ArrowFunction();
-const arrowObj4 = new ArrowFunction();
+var me = {
+  name: "Tom",
+};
+
+var you = {
+  name: "Reader",
+};
+
+console.log(identify(me));
+console.log(identify(you));
+
+speak(you);
+speak(me);
