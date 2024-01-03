@@ -336,3 +336,106 @@ Person.prototype.calcAge = function () {
 const jonas = new Person("Mark", 2010);
 console.log(Person.prototype.constructor);
 jonas.calcAge;
+
+Person.prototype.species = "Homo Sapiens";
+
+console.log(jonas.species);
+
+console.log(jonas.__proto__);
+
+var createCounter = function (init) {
+  let count = init;
+  return {
+    increment() {
+      return ++count;
+    },
+    decrement() {
+      return --init;
+    },
+    reset() {
+      return init;
+    },
+  };
+};
+
+let counter = createCounter(5);
+console.log(counter.increment());
+console.log(counter.reset());
+console.log(counter.decrement());
+
+// Given an integer array arr and a mapping function fn, return a new array with a transformation applied to each element.
+
+// The returned array should be created such that returnedArray[i] = fn(arr[i], i).
+
+// Please solve it without the built-in Array.map method.
+
+// var map = function (arr, fn) {
+//   var result = [];
+
+//   for (let i = 0; i < arr.length; i++) {
+//     result.push(fn(arr[i], i));
+//   }
+
+//   return result;
+// };
+
+// function timesTwo(n) {
+//   return n * 2;
+// }
+
+// const plusOne = function (n) {
+//   return n + 1;
+// };
+
+// console.log(map([1, 2, 3], timesTwo));
+// Example 1:
+
+// Input: arr = [1,2,3], fn = function plusone(n) { return n + 1; }
+// Output: [2,3,4]
+// Explanation:
+// const newArray = map(arr, plusone); // [2,3,4]
+// The function increases each value in the array by one.
+
+// Given an integer array arr and a filtering function fn, return a filtered array filteredArr.
+
+// The fn function takes one or two arguments:
+
+//     arr[i] - number from the arr
+//     i - index of arr[i]
+
+// filteredArr should only contain the elements from the arr for which the expression fn(arr[i], i) evaluates to a truthy value. A truthy value is a value where Boolean(value) returns true.
+
+// Please solve it without the built-in Array.filter method.
+
+var filtered = function (arr, fn) {
+  let result = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (fn(arr[i], i)) {
+      result.push(arr[i]);
+    }
+  }
+  let filteredArr = result;
+  return filteredArr;
+};
+
+console.log(filtered([0, 10, 20, 30], greaterThan10));
+
+function greaterThan10(n) {
+  return n > 10;
+}
+
+// Example 1:
+
+// Input: arr = [0,10,20,30], fn = function greaterThan10(n) { return n > 10; }
+// Output: [20,30]
+// Explanation:
+// const newArray = filter(arr, fn); // [20, 30]
+// The function filters out values that are not greater than 10
+
+const nums = [1, 2, 7, 4, 5];
+
+function fn(init, n) {
+  return init + n;
+}
+
+console.log(nums.reduce(fn, 0));
