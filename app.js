@@ -1,5 +1,3 @@
-// "use strict";
-
 // let count = 0;
 
 // const counter = () => {
@@ -306,10 +304,29 @@ speak(me);
 
 //application of the *this* keyword sasa.
 
-function foo(num) {
-  console.log("foo is: " + num);
+// function foo(num) {
+//   console.log("foo is: " + num);
+
+//   this.count++;
+// }
+
+// foo.count = 0;
+
+// var i;
+
+// for (let i = 0; i < 10; i++) {
+//   if (i > 5) {
+//     foo.call(foo, i);
+//   }
+// }
+
+// console.log(foo.count);
+
+function foo(numb) {
+  console.log("foo is: " + numb);
 
   this.count++;
+  // console.log(this);
 }
 
 foo.count = 0;
@@ -317,7 +334,7 @@ foo.count = 0;
 var i;
 
 for (let i = 0; i < 10; i++) {
-  if (i > 5) {
+  if (i > 3) {
     foo.call(foo, i);
   }
 }
@@ -342,6 +359,8 @@ Person.prototype.species = "Homo Sapiens";
 console.log(jonas.species);
 
 console.log(jonas.__proto__);
+
+//closures.
 
 var createCounter = function (init) {
   let count = init;
@@ -439,3 +458,157 @@ function fn(init, n) {
 }
 
 console.log(nums.reduce(fn, 0));
+
+// function baz() {
+//   //call-stack is: 'baz'
+//   //So, our call-site is in the global scope.
+
+//   console.log("baz");
+//   bar(); // <-- call-site for 'bar'
+// }
+
+// function bar() {
+//   //call stack is 'baz'-> 'bar'.
+//   // call site is in 'baz'.
+
+//   console.log("bar");
+//   foo(); // <--- call-site for foo
+// }
+
+// function foo() {
+//   // call stack is 'baz'->'bar'->'foo'
+//   // call site is in 'bar'
+
+//   console.log("foo");
+// }
+
+// baz(); //<-- call-site for 'baz'.
+
+//How the call-site determines where the this keyword will point to during the execution of a function. 4 rules to help up determing that.
+
+//DEFAULT BINDING.
+
+// function fool() {
+//   console.log(this.a);
+// }
+
+// var a = 2;
+
+// fool();
+
+// //IMPLICIT BINDING
+
+// function fooImp() {
+//   console.log(this.b);
+// }
+
+// var obj = {
+//   b: 21,
+//   fooImp: fooImp,
+// };
+
+// obj.fooImp();
+
+// function foo2() {
+//   console.log(this.c);
+// }
+
+// var obj2 = {
+//   c: 34567890,
+//   foo2: foo2,
+// };
+
+// var obj1 = {
+//   c: "Hello World",
+//   obj2: obj2,
+// };
+
+// obj1.obj2.foo2();
+
+// function foo3() {
+//   console.log(this.x);
+// }
+
+// var obj = {
+//   x: 1,
+//   foo3: foo3,
+// };
+
+// var bart = obj.foo3; // function reference / alias
+
+// var x = "Opps, global now!";
+
+// bart(); //<-- the call site appears to be undecorated function call so the default binging applies here.
+
+//A more common way to demonstrate this implicit loss is with callback.
+
+// function foul() {
+//   console.log(this.r);
+// }
+
+// function doFoul(fn) {
+//   // fn is a reference to 'foul'
+
+//   fn.call(); //<--call site for 'obj4.foul'
+// }
+
+// var obj4 = {
+//   r: 21,
+//   foul: foul,
+// };
+
+// var r = "oops, global!";
+
+// doFoul(obj4.foul);
+
+//EVEN WHEN USING CALL BACK FUNCTIONS.
+
+// function foo() {
+//   console.log(this.a);
+// }
+
+// var obj = {
+//   a: 2,
+//   foo: foo,
+// };
+
+// var a = "Global";
+
+// var b = obj.foo;
+// b.call(obj);
+
+//EXPLICIT BINDING
+
+// function foo() {
+//   console.log(this.a);
+// }
+
+// var obj = {
+//   a: 12,
+// };
+
+// var bar = function () {
+//   foo.apply(obj);
+// };
+
+// setTimeout(bar, 2000);
+
+// bar.call(window);
+
+//HARD BINDING
+
+function foo(something) {
+  console.log(this.a, something);
+  return this.a + something;
+}
+
+var obj = {
+  a: 134,
+};
+
+var bar = function () {
+  return foo.call(obj, arguments);
+};
+
+var b = bar(6);
+console.log(b);
