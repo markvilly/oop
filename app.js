@@ -597,18 +597,56 @@ console.log(nums.reduce(fn, 0));
 
 //HARD BINDING
 
+// function foo(something) {
+//   console.log(this.a, something);
+//   return this.a + something;
+// }
+
+// var obj = {
+//   a: 99,
+// };
+
+// var bar = function () {
+//   return foo.apply(obj, arguments);
+// };
+
+// const b = bar(1);
+
+// console.log(b);
+
+//SIMPLE BIND HELPER
+// function foo(something) {
+//   console.log(this.a, something);
+//   return this.a + something;
+// }
+
+// function bind(fn, obj) {
+//   return function () {
+//     return fn.apply(obj, arguments);
+//   };
+// }
+
+// var obj = {
+//   a: 23,
+// };
+
+// var bar = bind(foo, obj);
+
+// var b = bar(7);
+
+// console.log(b);
+
+// BIND METHOD.
+
 function foo(something) {
   console.log(this.a, something);
   return this.a + something;
 }
 
 var obj = {
-  a: 134,
+  a: 12,
 };
 
-var bar = function () {
-  return foo.call(obj, arguments);
-};
+var bar = foo.bind(obj);
 
-var b = bar(6);
-console.log(b);
+console.log(bar(3));
