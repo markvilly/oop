@@ -650,3 +650,83 @@ var obj = {
 var bar = foo.bind(obj);
 
 console.log(bar(3));
+
+//some built in functions tend to have parameters called 'contxt that allows us not to have to call bind(..).
+
+function foo2(el) {
+  console.log(el, this.id);
+}
+
+var objz = {
+  id: "hello",
+  foo2: foo2,
+  book() {
+    console.log(this.id);
+  },
+};
+
+// [1, 2, 3].forEach(foo2, obj);
+
+objz.foo2("hoo");
+
+objz.book();
+
+//NEW KEYWORD.
+
+function foo3(a) {
+  this.a = a;
+}
+
+var bar = new foo3(3);
+
+console.log(bar.a);
+
+//checking the order of precedence.
+
+//default binding comes last ofc.
+
+function foo6() {
+  console.log(this, this.a);
+}
+
+var obj3 = {
+  a: 2,
+  foo6: foo6,
+};
+
+var obj5 = {
+  a: 3,
+  foo6: foo6,
+};
+
+obj3.foo6();
+obj5.foo6();
+
+obj3.foo6.call(obj5);
+obj5.foo6.call(obj3);
+
+// figuring out where the new binding fits into the precedence.
+
+function fooX(something) {
+  this.a = something;
+}
+
+var objx1 = {
+  fooX: fooX,
+};
+
+var objx2 = {};
+
+objx1.fooX(232);
+console.log(objx1.a);
+console.log(objx1);
+
+objx1.fooX.call(objx2, 323);
+
+console.log(objx2.a);
+console.log(objx2);
+
+var bar = new objx1.fooX(4);
+console.log(objx1.a);
+console.log(bar.a);
+console.log(bar);
