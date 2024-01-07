@@ -707,26 +707,42 @@ obj5.foo6.call(obj3);
 
 // figuring out where the new binding fits into the precedence.
 
+// function fooX(something) {
+//   this.a = something;
+// }
+
+// var objx1 = {
+//   fooX: fooX,
+// };
+
+// var objx2 = {};
+
+// objx1.fooX(232);
+// console.log(objx1.a);
+// console.log(objx1);
+
+// objx1.fooX.call(objx2, 323);
+
+// console.log(objx2.a);
+// console.log(objx2);
+
+// var bar = new objx1.fooX(4);
+// console.log(objx1.a);
+// console.log(bar.a);
+// console.log(bar);
+
+//checking if the (new) precedes explicit binding.
+
 function fooX(something) {
   this.a = something;
 }
 
-var objx1 = {
-  fooX: fooX,
-};
+var objx1 = {};
 
-var objx2 = {};
-
-objx1.fooX(232);
-console.log(objx1.a);
+var bar = fooX.bind(objx1);
+bar(231);
 console.log(objx1);
-
-objx1.fooX.call(objx2, 323);
-
-console.log(objx2.a);
-console.log(objx2);
-
-var bar = new objx1.fooX(4);
 console.log(objx1.a);
-console.log(bar.a);
-console.log(bar);
+
+var baz = new bar(323);
+console.log(objx1.a);
