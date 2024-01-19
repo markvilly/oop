@@ -312,3 +312,55 @@ var baz = new bar(323);
 console.log(objx1.a);
 
 //I guesss this works
+
+function copyArrayAndManipulate(array, instructions) {
+  const output = [];
+  for (let i = 0; i < array.length; i++) {
+    output.push(instructions(array[i]));
+  }
+  return output;
+}
+
+function multiplyBy2(input) {
+  return input * 2;
+}
+
+const result = copyArrayAndManipulate([1, 2, 3], multiplyBy2);
+console.log(result);
+
+//Closures
+
+console.log("CLOSURES");
+
+function createFunction() {
+  function multiplyBy2(num) {
+    return num * 2;
+  }
+  return multiplyBy2;
+}
+
+const generatedFunc = createFunction();
+const resulty = generatedFunc(32);
+const resulty2 = generatedFunc(23);
+const resulty3 = generatedFunc(22);
+const resulty4 = generatedFunc(11);
+const resulty5 = generatedFunc(33);
+const resulty6 = generatedFunc(13);
+
+console.log(resulty);
+console.log(resulty2);
+console.log(resulty3);
+console.log(resulty4);
+console.log(resulty6);
+
+function outer() {
+  let counter = 0;
+  function incrementCounter() {
+    counter++;
+  }
+  incrementCounter();
+}
+const piece = outer();
+
+console.log(piece());
+outer();
