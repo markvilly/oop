@@ -356,11 +356,11 @@ console.log(resulty6);
 function outer() {
   let counter = 0;
   function incrementCounter() {
-    counter++;
+    return counter++;
   }
   incrementCounter();
 }
+
 const piece = outer();
 
-console.log(piece());
-outer();
+console.log(piece);
