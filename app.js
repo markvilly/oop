@@ -363,4 +363,114 @@ function outer() {
 
 const piece = outer();
 
-console.log(piece);
+outer();
+
+//Async
+
+let stocks = {
+  Fruits: ["Strawberry", "Grapes", "Bananas", "Appples"],
+  Liquid: ["Water", "Ice"],
+  Holder: ["Cone", "Cup", "Stick"],
+  toppings: ["Chocolate", "Peanuts"],
+};
+
+stocks.Fruits[2];
+
+//callback hell
+// let order = (fruit_name, call_production) => {
+//   setTimeout(() => {
+//     console.log(`${stocks.Fruits[fruit_name]} was selected.`);
+
+//     call_production();
+//   }, 2000);
+// };
+
+// let production = () => {
+//   setTimeout(() => {
+//     console.log("production has started");
+//     setTimeout(() => {
+//       console.log("The fruit has been chopped");
+//       setTimeout(() => {
+//         console.log(`${stocks.Liquid[0]} & ${stocks.Liquid[1]} was selected.`);
+//         setTimeout(() => {
+//           console.log("the machine is running");
+//           setTimeout(() => {
+//             console.log(`Ice cream was placed on ${stocks.Holder[0]}.`);
+//             setTimeout(() => {
+//               console.log(`${stocks.toppings[0]} was added as toppings`);
+//               setTimeout(() => {
+//                 console.log("Ice cream is served");
+//               }, 2000);
+//             }, 3000);
+//           }, 2000);
+//         }, 1000);
+//       }, 1000);
+//     }, 2000);
+//   }, 0);
+// };
+
+// order(0, production);
+
+let isShopOpen = true;
+
+//PROMISES
+
+// let order = (time, work) => {
+//   return new Promise((resolve, reject) => {
+//     if (isShopOpen) {
+//       setTimeout(() => {
+//         resolve(work());
+//       }, time);
+//     } else {
+//       reject(console.log("Our shop is closed."));
+//     }
+//   });
+// };
+
+// order(2000, () => console.log(`${stocks.Fruits[0]} was selected`))
+//   .then(() => {
+//     return order(0, () => {
+//       console.log("Production has started");
+//     });
+//   })
+
+//   .then(() => {
+//     return order(2000, () => console.log("the fruit was chopped."));
+//   })
+
+//   .then(() => {
+//     return order(1000, () =>
+//       console.log(`${stocks.Liquid[0]} and ${stocks.Liquid[1]} was selected. `)
+//     );
+//   })
+
+//   .then(() => {
+//     return order(1000, () => console.log("Start the machine"));
+//   })
+//   .then(() => {
+//     return order(2000, () => {
+//       console.log(`Ice cream was placed on ${stocks.Holder[0]}`);
+//     });
+//   })
+//   .then(() => {
+//     return order(3000, () => {
+//       console.log(`${stocks.toppings[0]} was selecteed`);
+//     });
+//   })
+//   .then(() => {
+//     return order(1000, () => console.log("Your ice cream is served. "));
+//   })
+
+//   .catch(() => {
+//     console.log("Customer Left.");
+//   })
+
+//   .finally(() => {
+//     console.log("Day Ended, Our shop is closed.");
+//   });
+
+//PROMISES - ASYNC AWAIT
+
+let order = () => {
+  return new Promise((resolve, reject) => {});
+};
