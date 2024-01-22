@@ -411,8 +411,6 @@ stocks.Fruits[2];
 
 // order(0, production);
 
-let isShopOpen = true;
-
 //PROMISES
 
 // let order = (time, work) => {
@@ -471,6 +469,57 @@ let isShopOpen = true;
 
 //PROMISES - ASYNC AWAIT
 
-let order = () => {
-  return new Promise((resolve, reject) => {});
-};
+// let order = () => {
+//   return new Promise((resolve, reject) => {
+//     if (isShopOpen) {
+//       resolve();
+//     } else {
+//       reject();
+//     }
+//   });
+// };
+
+let isShopOpen = true;
+
+function time(ms) {
+  return new Promise((resolve, reject) => {
+    if (isShopOpen) {
+      setTimeout(resolve, ms);
+    } else {
+      reject(console.log("Shop is closed. "));
+    }
+  });
+}
+
+async function kitchen() {
+  try {
+    await time(2000);
+    console.log(`${stocks.Fruits[0]} is fruit selected.`);
+    await time(3000);
+    console.log("Start the Production. ");
+
+    await time(2000);
+    console.log("Cut the fruits");
+
+    await time(1000);
+    console.log(`Added ${stocks.Liquid[0]} & ${stocks.Liquid[1]}`);
+
+    await time(1000);
+    console.log("Start the machine.");
+
+    await time(2000);
+    console.log(`Ice-cream is placed on ${stocks.Holder[0]}`);
+
+    await time(2000);
+    console.log(`${stocks.toppings[0]} is selected toppings.`);
+
+    await time(2000);
+    console.log("Serving ice cream");
+  } catch (error) {
+    console.log("Customer Left.", error);
+  } finally {
+    console.log("Day ended, shop is closed.");
+  }
+}
+
+kitchen();
